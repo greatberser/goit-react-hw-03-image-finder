@@ -39,20 +39,13 @@ export class App extends Component {
         this.setState(prevState => ({
           status: 'loading',
           images: [...prevState.images, ...hits],
-          isLoadMore: page < Math.ceil(totalHits / 12),
+          isLoadMore: page < Math.ceil(totalHits / 40),
         }));
       } catch (error) {
         this.setState({ error: error.message });
       } finally {
         this.setState({ status: 'idle' });
       }
-    }
-
-    if (
-      prevState.largeImageURL !== this.state.largeImageURL &&
-      this.state.largeImageURL !== ''
-    ) {
-      this.setState({ showModal: true });
     }
   }
 
@@ -79,7 +72,7 @@ export class App extends Component {
 
 
   handlerModal = (largeImageURL, tags) => {
-    this.setState({ largeImageURL, tags, status: 'loading' });
+    this.setState({largeImageURL, tags, showModal: true});
   };
 
   handleCloseModal = () => {
